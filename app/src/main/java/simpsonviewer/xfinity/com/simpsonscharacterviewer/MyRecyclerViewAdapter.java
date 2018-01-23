@@ -1,7 +1,12 @@
 package simpsonviewer.xfinity.com.simpsonscharacterviewer;
 
+
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,31 +23,47 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private LayoutInflater inflater;
     List<String> relatedTopicsItems;
     boolean isSwitchView = true;
+    private static final int LIST_ITEM = 0;
+    private static final int GRID_ITEM = 1;
+    String title,description;
+    public ClickOnItemListener listener;
+
+    interface ClickOnItemListener {
+        void onClickOnItemListender(String title, String description);
+    }
 
     public MyRecyclerViewAdapter(Context context, List<String> list) {
         this.context = context;
+        listener = (ClickOnItemListener) context;
         this.relatedTopicsItems = list;
         inflater = LayoutInflater.from(context);
     }
-
+    @Override
+    public int getItemViewType (int position) {
+        if (isSwitchView){
+            return LIST_ITEM;
+        }else{
+            return GRID_ITEM;
+        }
+    }
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.response_cardview,null);
+       // View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.response_cardview,null);
+        View view;
+        if (viewType == LIST_ITEM){
+            view = LayoutInflater.from(parent.getContext()).inflate( R.layout.response_cardview, null);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.response_cardview_grid, null);
+        }
         return new CustomViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final CustomViewHolder holder, final int position) {
        String[] Title =relatedTopicsItems.get(position).split("-");
-       String title = Title[0];
-       String description  = Title[1];
-
+       title = Title[0];
+       description  = Title[1];
        holder.text.setText("Text: " + title);
-      // holder.shipmentstatus.setText("Description: " +description );
-       // holder.packageName.setText("Package Name: " + item.getPackagename());
-       // String bitMapString = item.getShipmentid();
-       // Bitmap bitmap = generateBarCode(bitMapString);
-       // holder.barCode.setImageBitmap(bitmap);
     }
 
     public boolean toggleItemViewType () {
@@ -56,19 +77,17 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView text;
-        TextView shipmentstatus;
-        TextView packageName;
-        //TextView member_name;
-        ImageView barCode;
 
         CustomViewHolder(View view) {
             super(view);
             text = view.findViewById(R.id.shipmentid);
-            //shipmentstatus = view.findViewById(R.id.shipmentstatus);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, " " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                    String[] Title =relatedTopicsItems.get(getAdapterPosition()).split("-");
+                    String ti = Title[0];
+                    String desc = Title[1];
+                    listener.onClickOnItemListender(ti, desc);
                 }
             });
         }

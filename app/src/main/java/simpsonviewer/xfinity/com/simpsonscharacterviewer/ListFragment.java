@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ import simpsonviewer.xfinity.com.simpsonscharacterviewer.network.RetrofitClient;
  * Created by Jinming on 1/23/18.
  */
 
-public class ListFragment extends Fragment {
-    private RecyclerView recyclerView;
+public class ListFragment extends Fragment
+{
+    public RecyclerView recyclerView;
     MyRecyclerViewAdapter adapter;
     private ApiClient apiClient;
     private List<String> list;
@@ -42,30 +44,21 @@ public class ListFragment extends Fragment {
         apiClient = RetrofitClient.getRetrofit().create(ApiClient.class);
     }
 
+    public MyRecyclerViewAdapter getAdapter() {
+        return adapter;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
-
         list = new ArrayList<>();
         adapter = new MyRecyclerViewAdapter(getActivity(), list);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initView();
         return view;
     }
-    private void initView() {
-
-/*        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-    }
-
-
 
 
     @Override
@@ -83,7 +76,6 @@ public class ListFragment extends Fragment {
                     list.add(item.getText());
                 }
                 Log.d(TAG, "onResponse: " + list.size());
-
                 adapter.notifyDataSetChanged();
             }
 
@@ -94,5 +86,4 @@ public class ListFragment extends Fragment {
             }
         });
     }
-
 }
