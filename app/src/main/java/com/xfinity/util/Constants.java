@@ -1,8 +1,5 @@
 package com.xfinity.util;
 
-/**
- * Created by Jinming on 1/24/18.
- */
 
 public class Constants {
     public static String LIST_FRAGMENT_TAG="list";
