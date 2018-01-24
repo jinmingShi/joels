@@ -2,24 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:padding="10dp">
 
     <ImageView
         android:src="@mipmap/ic_launcher"
         android:id="@+id/imageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
     <TextView
         android:id="@+id/shipmentid"
-        android:text="name"
-        android:textStyle="bold"
-        android:layout_alignBaseline="@id/imageView"
-        android:layout_margin="10dp"
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_toRightOf="@+id/imageView"/>
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/imageView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imageView"
+        android:gravity="center_vertical"
+        android:text="name"
+        android:textStyle="bold" />
 
 </RelativeLayout>

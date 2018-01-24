@@ -1,5 +1,6 @@
 package simpsonviewer.xfinity.com.simpsonscharacterviewer;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,11 +55,12 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     }
 
     @Override
-    public void onClickOnItemListender(String title, String description) {
+    public void onClickOnItemListender(String title, String description, String image) {
         DetailFragment detailFragment = new DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putString("title",title);
         bundle.putString("description", description);
+        bundle.putString("image", image);
         detailFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .replace(R.id.contentPanel, detailFragment)

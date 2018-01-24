@@ -3,7 +3,7 @@ package simpsonviewer.xfinity.com.simpsonscharacterviewer.Model;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Response{
+public class MyResponse {
 
 	@SerializedName("Entity")
 	private String entity;
@@ -239,7 +239,7 @@ public class Response{
 	@Override
  	public String toString(){
 		return 
-			"Response{" + 
+			"MyResponse{" +
 			"entity = '" + entity + '\'' + 
 			",definitionSource = '" + definitionSource + '\'' + 
 			",relatedTopics = '" + relatedTopics + '\'' + 
